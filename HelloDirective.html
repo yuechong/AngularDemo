@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>HelloWorld</title>
+ </head>
+ <body ng-app="app">
+  
+  <div ng-controller="greetCtr">
+    <my-hello></my-hello>
+	<input type="text" ng-model="greet.what"/>
+	<p>{{greet.say}},{{greet.what}},Angular!</p>
+  </div>
+  <!---js--->
+  <script type="text/javascript" src="js/angular-1.3.0.js"></script>
+  <script type="text/javascript" src="HelloDirective.js"></script>
+ </body>
+</html>
