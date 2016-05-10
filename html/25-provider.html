@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>25 provider</title>
+    <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-controller="people">
+    
+    showDate:{{showDate}}
+</div>
+
+<script>
+
+    var app = angular.module('app',[]);
+
+    app.controller('people',function($scope,date){
+     $scope.showDate = date.showDate();
+    });
+    //返回类型只能是对象
+    app.provider('date',function(){
+      return{
+        $get:function() {
+          return{
+            showDate:function() {
+              var date = new Date().getHours();
+              return date;
+            }
+          }
+        }
+      }
+    });
+</script>
+</body>
+</html>

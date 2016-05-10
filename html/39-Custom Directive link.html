@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Custom directive link</title>
+	<script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+	<div ng-controller="Ctrl" class="main">
+		<div my-say></div>
+		<div my-say></div>
+		<div my-say></div>
+	</div>
+
+	<script>
+		var app = angular.module('app',[]);
+		//my-say -->mySay   change
+		app.directive('mySay',function() {
+			function linkfun(scope,element,attrs) {
+				console.log(scope);
+				scope.name = 'Hello World';
+				scope.changeName = function() {
+					scope.name = scope.ad;
+				}
+				/*element.bind('click',function() {
+					alert(this.innerHTML);
+				});*/
+				
+			}
+			return {
+				restrict: 'EA',
+				template: "<div ng-click='changeName()'>{{name}}</div>",
+				scope: true,//scope:{},
+				link: linkfun
+			};
+		});
+
+		app.controller('Ctrl', ['$scope', function($scope){
+			$scope.ad = "This is ad";
+			$scope.controllerProperty = 'This is a controller';
+		}]);
+	</script>
+</body>
+</html>

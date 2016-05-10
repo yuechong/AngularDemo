@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>ng-show  Directive</title>
+	<script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body ng-controller="Ctrl">
+	<div ng-show="show == 'msg1'">
+		This is message1!
+	</div>
+	<div ng-show="show == 'msg2'">
+		This is message2!
+	</div>
+	<button ng-click="change()">show msg another</button>
+	<script>
+		var app = angular.module('app',[]);
+		app.controller('Ctrl',function($scope) {
+			$scope.show = 'msg1';
+			$scope.change = function() {
+				$scope.show = $scope.show=='msg1'?'msg2':'msg1';
+				/*if($scope.show =='msg1'){
+					$scope.show = 'msg2';
+				}else{
+					$scope.show = 'msg1';
+				}*/
+			};
+		});
+	</script>
+</body>
+</html>

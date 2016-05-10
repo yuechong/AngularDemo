@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>23 service</title>
+    <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-controller="people">
+    
+    <button ng-click="generateRandom()">Rondom</button><br/>
+    random: {{randomcount}}
+</div>
+
+<script>
+
+    var app = angular.module('app',[]);
+
+    app.controller('people',function($scope,random){
+      $scope.generateRandom = function() {
+        $scope.randomcount = random.generate();
+      };
+    });
+    app.service('random',function(){
+      var num = Math.floor(Math.random()*10);
+      this.generate = function() {
+        return num;
+      };
+    });
+</script>
+</body>
+</html>

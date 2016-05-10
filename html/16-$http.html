@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>16-$http service</title>
+    <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-controller="people">
+    <input type="text" ng-model="searchBox" id=""/>
+    <ul>
+        <h2>Name And Age</h2>
+        <li ng-repeat="person in persons | filter:searchBox">{{'Name:'+person.Name+' ;Age: '+person.Age}}</li>
+    </ul>
+</div>
+
+<script>
+var data={
+    "records" :[
+    {
+        "Name":"Mehul",
+        "Age":"18"
+    },
+    {
+        "Name":"Jai",
+        "Age":"18"
+    },
+    {
+        "Name":"Jai",
+        "Age":"18"
+    },
+    {
+        "Name":"Jai",
+        "Age":"18"
+    }
+    ]
+}
+    var app = angular.module('app',[]);
+
+    app.controller('people',function($scope,$http){
+        /*var url="http://localhost:8080/myAngular/js/database.json";
+        $http.get(url)
+                .success(function(data){
+                    console.log(data);
+                    $scope.persons = data.records;
+                });*/
+        $scope.persons=data.records;
+    });
+</script>
+</body>
+</html>

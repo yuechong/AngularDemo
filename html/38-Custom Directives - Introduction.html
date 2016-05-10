@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Custom Filters</title>
+	<script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+	<div ng-controller="Ctrl" class="main">
+		<div my-say></div>
+		<my-say></my-say>
+	</div>
+
+	<script>
+		var app = angular.module('app',[]);
+		//my-say -->mySay   change
+		app.directive('mySay',function() {
+			return {
+				template:"<div>Hello World!</div>"
+			};
+		});
+
+		app.controller('Ctrl', ['$scope', function($scope){
+			
+
+		}]);
+	</script>
+</body>
+</html>

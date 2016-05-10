@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>22 $scope $digest()</title>
+    <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-controller="people">
+    
+    <span>{{myRandomNumber}}</span>
+    <br/>
+    <input type="button" value="Create new random number">
+</div>
+
+<script>
+
+    var app = angular.module('app',[]);
+
+    app.controller('people',function($scope){
+
+       $scope.myRandomNumber = Math.random();
+
+       document.querySelector('input').addEventListener('click', function () {
+          /* body... */ 
+          console.log('button clicked');
+          $scope.myRandomNumber = Math.random();
+          //$scope.$digest();
+       },false);
+    });
+</script>
+</body>
+</html>

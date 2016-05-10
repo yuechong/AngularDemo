@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>20 range base loop</title>
+    <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-controller="people">
+    <ul>
+        <li ng-repeat="i in myRange track by $index">{{123}}</li>
+    </ul>
+</div>
+
+<script>
+
+    var app = angular.module('app',[]);
+
+    app.controller('people',function($scope){
+       /*//比较消耗内存
+       var range = 10;
+       $scope.myRange = [];
+       for(var i=0;i<range;i++){
+            $scope.myRange.push(i);
+       }*/
+       //建议以下方式 track by $index 根据id not 根据value
+       $scope.myRange = new Array(100);
+       // $scope.Myrange
+    });
+</script>
+</body>
+</html>

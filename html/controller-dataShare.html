@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>不同控制器的数据共享</title>
+</head>
+<body>
+
+<div ng-controller="Ctr1">
+    <input type="text" name="" ng-model="data.messge" id=""/>
+    firstName:{{data.messge}}
+</div>
+
+<div ng-controller="Ctr2">
+    <p>SecondName:{{data.messge}}</p>
+</div>
+
+<script type="text/javascript" src="../lib/angular.min.js"></script>
+<script>
+    angular.module("myApp",[])
+            .factory("Data",function(){
+              return {
+                  messge:"共享"
+              }
+            })
+            .controller("Ctr1",['$scope','Data',function($scope,Data){
+                //$scope.name = "ABC";
+                $scope.data = Data;
+            }])
+            .controller("Ctr2",['$scope','Data',function($scope,Data){
+                $scope.data = Data;
+            }])
+    ;
+</script>
+
+</body>
+</html>

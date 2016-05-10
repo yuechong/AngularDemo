@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>27 service factory provider</title>
+    <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-controller="people">
+    
+    greet:{{greet}}
+</div>
+
+<script>
+
+    var app = angular.module('app',[]);
+
+    app.service('fromService', function() {
+      this.message = "This is form service!";
+
+    });
+
+    app.factory('formFactory',function() {
+      var factory = {};
+      factory.message = "This is a factory!";
+      return factory;
+    });
+
+    app.provider("formProvider",function() {
+      var m1 = "This is form provider!";
+      return {
+        $get:function() {
+          return {
+            message: m1
+          }
+        }
+      }
+    });
+
+    app.controller('people',function($scope,fromService,formFactory,formProvider){
+      console.log(fromService)
+     $scope.greet = [fromService.message,formFactory.message,formProvider.message];
+    });
+    
+</script>
+</body>
+</html>

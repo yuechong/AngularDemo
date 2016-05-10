@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>21 $scope $watch</title>
+    <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-controller="people">
+    <input type="text" ng-model="myText" id="">
+    <p>count:{{ count}} times</p>
+</div>
+
+<script>
+
+    var app = angular.module('app',[]);
+
+    app.controller('people',function($scope){
+       $scope.count=0;
+       $scope.$watch('myText',function(newValue,oldValue) {
+          // console.log(newValue);
+          // console.log(oldValue);
+          $scope.count++;
+       });
+    });
+</script>
+</body>
+</html>

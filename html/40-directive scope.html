@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Custom directive link</title>
+	<script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+	<div ng-controller="Ctrl" class="main">
+		<p>name is : {{ name }}</p>
+		<p>Age is : {{ age }}</p>
+		<p>alert is: <input type="button" value="alert" ng-click="alertM()"></p>
+		<p>--------------------------</p>
+		<div my-say name="{{name}}" age="age" func="alertM()"></div>
+
+	</div>
+
+	<script>
+		var app = angular.module('app',[]);
+		//my-say -->mySay   change
+		app.directive('mySay',function() {
+		
+			return {
+				restrict: 'EA',
+				template: [
+					"<p>name:{{name}}</p>",
+					'<p>Enter new name: <input type="text" ng-model="name"/></p>',
+					"<p>age: {{age}}</p>",
+					'<p>Enter new Age: <input type="text" ng-model="age"/></p>',
+					'<p>alert <input type="button" value="alert" ng-click="func()"/></p>'
+					].join(''),
+				scope: {
+					name: '@',//--->name={{name}}
+					//name: '=',
+					age: '=',//--->age="age"
+					func: '&'
+				}//scope:{},
+				
+			};
+		});
+
+		app.controller('Ctrl', ['$scope', function($scope){
+			$scope.name = "This is ad";	
+			$scope.age = 38;	
+			$scope.alertM = function() {
+				alert($scope.name);
+			};	
+		}]);
+		// @ Text Bind
+		// = two way bind
+		// & one way bind Only function
+		/*
+		@ 当指令编译到模板的name时，就会到scope中寻找是否含有name的键值对，如果存在，就像上面那样，看到@就知道这是一个单向的数据绑定，然后寻找原来的那个使用指令的元素上（或者是指令元素本身）含有这个值的属性即my-name={{name}}，然后在父作用域查找{{name}}的值，得到之后传递给模板中的name。
+		=和&与@差不多，只不过=进行的是双向的数据绑定，不论模板还是父作用域上的属性的值发生改变都会使另一个值发生改变，
+		而&是绑定函数而已。
+		*/
+	</script>
+</body>
+</html>

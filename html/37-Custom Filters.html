@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Custom Filters</title>
+	<script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+	<div ng-controller="Ctrl" class="main">
+		Number :<input type="text" ng-model="number"> <br>
+		Base:<input type="text" ng-model="baseNumber">
+		your number {{number}} base {{baseNumber}} is {{number | base:baseNumber}}
+	</div>
+
+	<script>
+		var app = angular.module('app',[]);
+		app.filter('base',function() {
+			var something = function(input , base) {
+				var parsed = parseInt(input, 10);
+				var based = parseInt(base, 10);
+				if(isNaN(parsed) || isNaN(based) || based<2 ||based>36) 
+					return parsed;
+				return parsed.toString(based);
+			};
+			return something;
+		});
+		app.controller('Ctrl', ['$scope', function($scope){
+			
+
+		}]);
+	</script>
+</body>
+</html>

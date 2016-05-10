@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>TODo app</title>
+	<script type="text/javascript" src="../lib/angular.min.js"></script>
+	<style>
+	.main{
+		text-align:center;
+	}
+	span.done-true{
+		color:gray;
+		font-style:italic;
+		text-decoration: line-through;
+	}
+	span[contentEditable='true']{
+		background-color:gray;
+		padding:3px;
+	}
+	</style>
+</head>
+<body>
+	<div ng-controller="Ctrl" class="main">
+		<h1>Add a Task</h1>
+		<input ng-keyup="enterup()" ng-model="task" type="text" placeholder="Task">
+		<ul>
+			<li ng-repeat="task in tasks track by $index">
+				<input type="checkbox" ng-model="task.statue">
+				<span contentEditable="false" class="done-{{task.statue}}" ng-dblclick="contentEidt($index)" ng-keyup="change(task.task,$index)" ng-model="task.task">
+				{{task.task}}
+				</span>
+			</li>
+		</ul>
+	</div>
+
+	<script>
+		var app = angular.module('app',[]);
+		app.controller('Ctrl', ['$scope', function($scope){
+			$scope.tasks = [];
+			var tasklist = localStorage['tasklist'];
+			if(tasklist!=null){
+				$scope.tasks = JSON.parse(tasklist);
+			}
+
+			$scope.enterup = function() {
+				var keycode = event.which || event.keyCode;
+				if(keycode == 13 && $scope.task != ""){
+					$scope.addTask();
+				}
+			};
+			$scope.addTask = function() {
+				$scope.tasks.push({task:$scope.task,statue:false});
+				$scope.task = "";
+				localStorage['tasklist'] = JSON.stringify($scope.tasks);
+			};
+			$scope.contentEidt = function(index) {
+				console.log(event.target.innerText);
+				$scope.tasks[index].task=event.target.innerText;
+			
+
+				event.target.contentEditable= event.target.contentEditable=="false"?"true":"false";
+				localStorage['tasklist'] = JSON.stringify($scope.tasks);
+			};
+			$scope.change = function(taskM,index) {
+				var keycode = event.which || event.keyCode;
+				if(keycode == 13 && taskM != ""){
+					$scope.contentEidt(index);
+					console.log(taskM);
+				}
+				console.log('here');
+			}
+
+		}]);
+	</script>
+</body>
+</html>

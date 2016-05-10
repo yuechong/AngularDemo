@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>26 more provider</title>
+    <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-controller="people">
+    
+    showDate:{{showDate}}
+</div>
+
+<script>
+
+    var app = angular.module('app',[]);
+
+    app.controller('people',function($scope,date){
+     $scope.showDate = date.devshowDate();
+    });
+    //返回类型只能是对象
+    app.provider('date',function(){
+      var num;
+      return{
+        setmessage:function(value) {
+          num=value;
+        },
+        $get:function() {
+          return{
+            showDate:function() {
+              var date = new Date().getHours();
+              return date;
+            },
+            devshowDate:function() {
+              var date = new Date().getHours();
+              return num+" its:"+date;
+            }
+          }
+        }
+      }
+    });
+    app.config(function(dateProvider) {
+        // console.log(dateProvider);
+        var time = dateProvider.$get().showDate();
+        if(time>0 && time <12){
+          dateProvider.setmessage("Good moring!");
+        }else{
+          dateProvider.setmessage("Good evening");
+        }
+    });
+</script>
+</body>
+</html>

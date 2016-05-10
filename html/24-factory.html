@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>24 factory</title>
+    <script type="text/javascript" src="../lib/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-controller="people">
+    
+    <button ng-click="generateRandom()">Rondom</button><br/>
+    random: {{randomcount}}
+</div>
+
+<script>
+
+    var app = angular.module('app',[]);
+
+    app.controller('people',function($scope,random){
+      $scope.generateRandom = function() {
+        $scope.randomcount = random.generate();
+      };
+    });
+    //返回类型只能是对象
+    app.factory('random',function(){
+      var randomObj = {};
+      var num = Math.floor(Math.random()*10);
+      randomObj.generate = function() {
+        return num;
+      };
+      return randomObj;
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="../lib/angular.min.js"></script>
+    <script type="text/javascript" src="../lib/angular-route.js"></script>
+</head>
+<body>
+    <div ng-view></div>
+
+<script>
+    var app = angular.module('app',['ngRoute']);
+    app.config(function($routeProvider){
+        $routeProvider.when('/',{
+            templateUrl:'login.html'
+        }).when('/index',{
+            resolve:{
+                "check":function($rootScope,$location){
+                    if(!$rootScope.login){
+                        $location.path('/');
+                    }
+                }
+            },
+            templateUrl:'index.html'
+        }).otherwise({
+            redirectTo:'/'
+        })
+    });
+    app.controller('LoginCtrl',function($scope,$rootScope,$location){
+        $scope.submit = function(){
+            if($scope.name == "admin" && $scope.password == "admin"){
+                $rootScope.login = true;
+                $location.path('/index');
+            }else{
+                alert("wrong stuff");
+            }
+        }
+    });
+</script>
+</body>
+</html>
